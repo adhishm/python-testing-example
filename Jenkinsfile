@@ -4,7 +4,7 @@ stage('git sync') {
             checkout scm
             // git repo and branch defined inside Jenkins job
             
-            notify('Success')
+            notify('Success: Pulled repository from GitHub')
         } catch(err) {
             notify("Pulling from SCM failed: ${err}")
             currentBuild.result = 'FAILURE'
