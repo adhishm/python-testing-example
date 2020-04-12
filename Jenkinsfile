@@ -1,4 +1,4 @@
-stage('CI') {
+stage('git sync') {
     node('master') {
         try {
             checkout scm
