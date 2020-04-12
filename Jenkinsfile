@@ -4,12 +4,23 @@ stage('CI') {
             checkout scm
             // git repo and branch defined inside Jenkins job
             
+            notify('Success')
+        } catch(err) {
+            notify("Pulling from SCM failed: ${err}")
+            currentBuild.result = 'FAILURE'
+        }
+    }
+}
+
+stage('Unit tests') {
+    node('master') {
+        try {            
             sh label: '',
                 script: 'python -m unittest test_calc'
             
-            notify('Success')
+            notify('Success: All unit tests passed')
         } catch(err) {
-            notify("Build failed: ${err}")
+            notify("Unit tests failed: ${err}")
             currentBuild.result = 'FAILURE'
         }
     }
